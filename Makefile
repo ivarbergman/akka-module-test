@@ -4,7 +4,8 @@ patch:
 	git add .
 	git commit -m 'Publish new version'
 	git push
-	git push --follow-tags                                          
+	git push --follow-tags
+	gh create release $(git describe --tags --abbrev=0)
 
 minor:
 	npm version minor -git-tag-version --include-workspace-root --ws
