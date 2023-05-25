@@ -1,0 +1,38 @@
+{
+  "private": true,
+  "name": "@ivarbergman/akka-modules-monorepo",
+  "author": "Äventyret Sweden AB",
+  "version": "0.0.2",
+  "description": "Monorepo for Akka modules",
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "build:modernizr": "npm run build -w packages/modernizr",
+    "lint": "npm run lint --workspaces --if-present",
+    "husky": "husky install",
+    "pre-commit": "lint-staged",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "keywords": [],
+  "license": "MIN",
+  "devDependencies": {
+    "eslint": "^8.11.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
+    "jest": "^27.5.1",
+    "lint-staged": "^12.3.5",
+    "prettier": "^2.5.1"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write",
+      "eslint"
+    ]
+  },
+  "workspaces": [
+    "packages/modernizr"
+  ]
+}
