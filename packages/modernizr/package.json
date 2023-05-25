@@ -7,7 +7,7 @@
   "homepage": "https://github.com/Aventyret/akka-modules/packages/modernizr/#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Aventyret/akka-modules.git"
+    "url": "git+https://github.com/ivarbergman/akka-module-test.git"
   },
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs",
