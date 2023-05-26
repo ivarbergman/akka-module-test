@@ -11,17 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
 
       - name: Setup Git
         run: |
-          git config user.name '${{secrets.MAINTAINER_NAME}}'
-          git config user.email '${{secrets.MAINTAINER_EMAIL}}'
+          git config user.name '${{github.actor}}'
+          git config user.email '<>'
       - name: Install Dependencies
         run: |
           npm ci
@@ -38,8 +38,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: generate-changelog
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '16'
       - name: Publish
@@ -56,7 +56,7 @@ jobs:
     needs: publish
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Create Release Notes
         uses: actions/github-script@v4.0.2
         with:
