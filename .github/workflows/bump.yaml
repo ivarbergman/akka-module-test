@@ -35,8 +35,6 @@ jobs:
     # not run the workflow to prevent infinite recursion.)
     - name: Check out source
       uses: actions/checkout@v2
-      with:
-        ssh-key: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Setup Node.js
       uses: actions/setup-node@v2
