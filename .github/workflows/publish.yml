@@ -35,8 +35,8 @@ jobs:
           npm ci
           npm run build --ws
           npm publish --ws
-        # env:
-        #   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
           
   create-github-release:
     name: Create GitHub Release
