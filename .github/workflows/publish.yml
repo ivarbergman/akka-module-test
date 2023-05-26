@@ -3,14 +3,10 @@
 
 name: Publish Akka Modules
 
-# on:
-#   push:
-#     tags:        
-#       - '*'
-
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   install:
@@ -27,7 +23,7 @@ jobs:
     needs: install
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
       - uses: actions/checkout@v3
@@ -35,7 +31,26 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-      - run: npm version ${GITHUB_REF_NAME} --ws
-      - run: npm publish --ws
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - run: |
+          npm ci
+          npm run build --ws
+          npm publish --ws
+        # env:
+        #   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          
+  create-github-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: publish
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Create Release Notes
+        uses: actions/github-script@v4.0.2
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            await github.request(`POST /repos/${{ github.repository }}/releases`, {
+              tag_name: "${{ github.ref }}",
+              generate_release_notes: true
+            });
