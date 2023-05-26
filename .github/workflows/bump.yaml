@@ -43,15 +43,14 @@ jobs:
       with:
         node-version: '16'
 
-    - name: Install npm packages
-      run: npm ci
-
     - name: Setup Git
       run: |
         git config user.name '${{github.actor}}'
         git config user.email '<>'
-    - name: bump version
-      run: npm version ${{ github.event.inputs.version }}
 
-    - name: Push latest version
-      run: git push origin main --follow-tags
+    - name: Bump version
+      run: |
+        npm ci
+        npm version ${{ github.event.inputs.version }} --include-workspace-root --ws
+        git status
+        git push origin main --follow-tags
