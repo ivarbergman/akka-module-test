@@ -4,8 +4,13 @@
 name: Publish Akka Modules
 
 on:
-  release:
-    types: [created]
+  push:
+    tags:        
+      - '*'
+
+# on:
+#   release:
+#     types: [created]
 
 jobs:
   install:
@@ -30,6 +35,21 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
+      - run: npm version ${GITHUB_REF_NAME} --ws
       - run: npm publish --ws
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
+  
