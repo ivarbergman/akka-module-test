@@ -34,7 +34,7 @@ jobs:
       - run: |
           npm ci
           npm run build --ws
-          npm publish --ws
+          npm publish --ws --tag=${GITHUB_REF_NAME%/*} 
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
           
