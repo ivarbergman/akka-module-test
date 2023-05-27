@@ -1,7 +1,7 @@
 # from node-osc package
 # This is a basic workflow that is manually triggered
 
-name: Bump version
+name: Bump release
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
