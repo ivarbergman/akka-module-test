@@ -31,10 +31,13 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
+      - name: Set env
+        run: echo "CURRENT_TAG=$(echo $GITHUB_REF_NAME | sed -e 's|^.*-||g' -e 's|\..*||g' )" >> $GITHUB_ENV
+       
       - run: |
           npm ci
           npm run build --ws
-          npm publish --ws --tag=${GITHUB_REF_NAME%/*} 
+          npm publish --ws --tag=${CURRENT_TAG:-latest} 
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
           
