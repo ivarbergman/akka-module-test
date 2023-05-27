@@ -16,4 +16,4 @@ hotfix:
 	git status
 	git add .
 	git commit -m 'Publish hotfix'
-	git push origin main --follow-tags
+	git push origin --follow-tags
