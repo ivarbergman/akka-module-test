@@ -1,8 +1,11 @@
 
-publish:
-	npm version patch -git-tag-version --include-workspace-root --ws
+all:
+	@echo "Noop"
+
+patch:
+	npm ci
+	npm version patch --include-workspace-root --ws
+	git status
 	git add .
-	git commit -m 'Publish new version'
-	git push
-	git push --follow-tags
-	gh release create $(git describe --tags --abbrev=0) --draft=false --generate-notes
+	git commit -m 'Publish'
+	git push origin main --follow-tags
