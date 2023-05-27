@@ -11,14 +11,12 @@ on:
     inputs:
       version:
         # Friendly description to be shown in the UI instead of 'name'
-        description: 'Semver type of new version (major / minor / patch)'
+        description: 'Semver type of new version (prerelease)'
         # Input has to be provided for the workflow to run
         required: true
         type: choice
         options: 
-        - patch
-        - minor
-        - major
+        - prerelease
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -26,7 +24,7 @@ jobs:
   bump-version:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    if: github.ref != 'refs/heads/main'
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Check out the content (source branch).  Use a deploy key so that
