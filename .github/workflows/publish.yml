@@ -50,7 +50,7 @@ jobs:
     needs: publish
     steps:
       - name: Determine prerelease
-        run: "echo \"PRERELEASE=$([[ $GITHUB_REF_NAME =~ ^.*-.*$ ]] && echo true || echo false)  \" >> $GITHUB_ENV"
+        run: "echo \"PRERELEASE=$([[ $GITHUB_REF_NAME =~ ^.*-.*$ ]] && echo true || echo false)\" >> $GITHUB_ENV"
       - name: Determine tag
         run: "echo \"RELEASE_TAG=${GITHUB_REF#refs/tags/}\" >> $GITHUB_ENV"
       - name: Checkout code
