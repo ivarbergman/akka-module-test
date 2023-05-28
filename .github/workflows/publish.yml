@@ -49,14 +49,40 @@ jobs:
     runs-on: ubuntu-latest
     needs: publish
     steps:
+      - name: Determine prerelease
+        run: "echo \"PRERELEASE=$([[ $GITHUB_REF_NAME =~ ^.*-.*$ ]] && echo true || echo false)\" >> $GITHUB_ENV"
+      - name: Determine tag
+        run: "echo \"RELEASE_TAG=${GITHUB_REF#refs/tags/}\" >> $GITHUB_ENV"
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Create Release Notes
-        uses: actions/github-script@v4.0.2
+      - name: Create release
+        uses: actions/github-script@v6
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
           script: |
-            await github.request(`POST /repos/${{ github.repository }}/releases`, {
-              tag_name: "${{ github.ref }}",
-              generate_release_notes: true
-            });
+            try {
+              const PRERELEASE = process.env.PRERELEASE === "true"
+              const response = await github.rest.repos.createRelease({
+                draft: PRERELEASE,
+                generate_release_notes: true,
+                name: process.env.RELEASE_TAG,
+                owner: context.repo.owner,
+                prerelease: PRERELEASE,
+                repo: context.repo.repo,
+                tag_name: process.env.RELEASE_TAG,
+              });
+
+              core.exportVariable('RELEASE_ID', response.data.id);
+              core.exportVariable('RELEASE_UPLOAD_URL', response.data.upload_url);
+            } catch (error) {
+              core.setFailed(error.message);
+            }
+      # - name: Create Release Notes
+      #   uses: actions/github-script@v4.0.2
+      #   with:
+      #     github-token: ${{secrets.GITHUB_TOKEN}}
+      #     script: |
+      #       await github.request(`POST /repos/${{ github.repository }}/releases`, {
+      #         tag_name: "${{ github.ref }}",
+      #         generate_release_notes: true
+      #       });
