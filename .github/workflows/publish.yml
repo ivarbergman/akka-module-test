@@ -32,7 +32,9 @@ jobs:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
       - name: Set env
-        run: echo "CURRENT_TAG=$(echo $GITHUB_REF_NAME | sed -e 's|^.*-||g' -e 's|\..*||g' )" >> $GITHUB_ENV
+          # CURRENT_TAG v0.3.16-hotfix.4 -> 'hotfix'
+          # CURRENT_TAG v0.3.16 -> ''
+        run: echo "CURRENT_TAG=$(echo $GITHUB_REF_NAME | sed -e 's|^v[0-9.]*[-]*||g' -e 's|\..*||g' )" >> $GITHUB_ENV
        
       - name: Npm publish
         run: |
