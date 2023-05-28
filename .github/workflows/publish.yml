@@ -34,7 +34,8 @@ jobs:
       - name: Set env
         run: echo "CURRENT_TAG=$(echo $GITHUB_REF_NAME | sed -e 's|^.*-||g' -e 's|\..*||g' )" >> $GITHUB_ENV
        
-      - run: |
+      - name: Npm publish ${CURRENT_TAG}
+        run: |
           npm ci
           npm run build --ws
           npm publish --ws --tag=${CURRENT_TAG:-latest} 
