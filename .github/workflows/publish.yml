@@ -61,11 +61,12 @@ jobs:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           script: |
             try {
+              const PRERELEASE = process.env.PRERELEASE === "true"
               console.log(process.env);
               console.log(process.env.PRERELEASE);
               console.log(typeof process.env.PRERELEASE);
               console.log(process.env.PRERELEASE === 'true');
-              console.log(process.env.PRERELEASE === "true");
+              console.log(PRERELEASE);
               const response = await github.rest.repos.createRelease({
                 draft: true,
                 generate_release_notes: true,
