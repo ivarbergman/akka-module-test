@@ -2,7 +2,7 @@
   "private": true,
   "name": "@ivarbergman/akka-modules-monorepo",
   "author": "Äventyret Sweden AB",
-  "version": "0.3.18-rc.2",
+  "version": "0.3.18-rc.3",
   "description": "Monorepo for Akka modules",
   "scripts": {
     "build": "npm run build --workspaces --if-present",
