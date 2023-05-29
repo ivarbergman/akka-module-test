@@ -38,6 +38,7 @@ jobs:
        
       - name: Npm publish
         run: |
+          cat package.json
           npm ci
           npm run build --ws
           npm publish --ws --tag=${CURRENT_TAG:-latest} 
