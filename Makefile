@@ -4,9 +4,11 @@ CURRENT_TYPE := $(shell git branch --show-current | sed -e 's|/.*||g' )
 all:
 	@echo "Noop"
 
-patch:
-	gh workflow run "Bump release" --ref=${CURRENT_BRANCH} -F version=patch   
-
-prerelease:
-	gh workflow run "Bump prerelease" --ref=${CURRENT_BRANCH} -F version=prerelease   
+release:
+	@read -p "Press key to continue with release on ${CURRENT_BRANCH}."
+	@if [ "$CURRENT_BRANCH" = "main" ]; then\
+		gh workflow run "Bump release" --ref=${CURRENT_BRANCH} -F version=patch;\
+	else \
+		gh workflow run "Bump prerelease" --ref=${CURRENT_BRANCH} -F version=prerelease;\
+    fi
 
