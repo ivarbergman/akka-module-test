@@ -58,6 +58,7 @@ jobs:
         npm version ${CURENT_VERSION} --ws --no-git-tag-version        
         git add .
         git commit --allow-empty -m "Bump version ${CURENT_VERSION}"
+        git push origin
         git tag v${CURENT_VERSION}
-        git push origin --follow-tags
+        git push origin --tags
   
