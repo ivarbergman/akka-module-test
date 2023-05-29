@@ -51,4 +51,6 @@ jobs:
         npm ci
         npm version ${{ github.event.inputs.version }} --preid=${GITHUB_REF_NAME%/*} | read VERSION
         npm version ${VERSION} --ws
+        git add .
+        git commit -m "Bump version ${VERSION}"
         git push origin --follow-tags
