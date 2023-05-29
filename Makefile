@@ -5,10 +5,9 @@ all:
 	@echo "Noop"
 
 release:
-	@read -p "Press key to continue with release on ${CURRENT_BRANCH}."
-	@if [ "$CURRENT_BRANCH" = "main" ]; then\
-		gh workflow run "Bump release" --ref=${CURRENT_BRANCH} -F version=patch;\
-	else \
+	@read -p "Press key to continue with release on branch ${CURRENT_BRANCH}"
+	@if [ "${CURRENT_BRANCH}" = "main" ]; then\
+		gh workflow run "Bump release" --ref=${CURRENT_BRANCH} -F branch ersion=patch;	else \
 		gh workflow run "Bump prerelease" --ref=${CURRENT_BRANCH} -F version=prerelease;\
     fi
 

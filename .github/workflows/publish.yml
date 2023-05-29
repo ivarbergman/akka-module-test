@@ -16,6 +16,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/packages/package-lock.json'
       - run: npm ci
       - run: npm run test
 
@@ -31,6 +33,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/packages/package-lock.json'
           registry-url: https://npm.pkg.github.com/
       - name: Set env
           # CURRENT_TAG v0.3.16-hotfix.4 -> 'hotfix'
@@ -39,14 +43,13 @@ jobs:
        
       - name: Npm publish
         run: |
-          cat package.json
-          npm ci
+          # npm ci
           npm run build --ws
           npm publish --ws --tag=${CURRENT_TAG:-latest} 
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
           
-  create-github-release:
+  release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
     needs: publish
