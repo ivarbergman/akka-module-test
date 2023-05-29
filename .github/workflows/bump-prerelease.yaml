@@ -46,16 +46,17 @@ jobs:
         git config user.name '${{github.actor}}'
         git config user.email '<>'
 
-
     - name: Bump root version
       run: |
         npm ci
-        echo "CURENT_VERSION=$(npm version ${{ github.event.inputs.version }} --preid=${GITHUB_REF_NAME%/*})" >> $GITHUB_ENV
-      
+        echo "CURENT_VERSION=$(npm version --no-git-tag-version ${{ github.event.inputs.version }} --preid=${GITHUB_REF_NAME%/*})" >> $GITHUB_ENV
+          
     - name: Bump modules version
       run: |
-        npm version ${CURENT_VERSION} --ws        
+        npm version ${CURENT_VERSION} --ws --no-git-tag-version        
         git add .
         git commit --allow-empty -m "Update version ${CURENT_VERSION}"
-        git push origin --follow-tags
-
+        git push origin
+        git tag ${CURENT_VERSION}
+        git push origin --tags
+  
