@@ -51,12 +51,13 @@ jobs:
     - name: Bump root version
       run: |
         npm ci
-        echo "CURENT_VERSION=$(npm version ${{ github.event.inputs.version }})" >> $GITHUB_ENV
+        echo "CURENT_VERSION=$(npm version --no-git-tag-version ${{ github.event.inputs.version }})" >> $GITHUB_ENV
         
     - name: Bump modules version
       run: |
-        npm version ${CURENT_VERSION} --ws        
+        npm version ${CURENT_VERSION} --ws --no-git-tag-version        
         git add .
         git commit --allow-empty -m "Bump version ${CURENT_VERSION}"
+        git tag v${CURENT_VERSION}
         git push origin --follow-tags
   
