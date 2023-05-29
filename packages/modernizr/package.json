@@ -2,7 +2,7 @@
   "name": "@ivarbergman/akka-modernizr",
   "description": "Feature detection in browser for Akka.",
   "author": "Äventyret Sweden AB",
-  "version": "0.3.34-rc.1",
+  "version": "0.3.34-rc.2",
   "license": "MIT",
   "homepage": "https://github.com/Aventyret/akka-modules/packages/modernizr/#readme",
   "repository": {
