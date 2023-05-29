@@ -49,8 +49,6 @@ jobs:
     - name: Bump version
       run: |
         npm ci
-        npm version prerelease --preid=${GITHUB_REF_NAME%/*} --include-workspace-root --ws
-        git status
-        git add .
-        git commit -m 'Publish'
-        git push origin --follow-tags
+        npm version ${{ github.event.inputs.version }} | read VERSION
+        npm version ${VERSION} --ws
+        git push origin main --follow-tags
