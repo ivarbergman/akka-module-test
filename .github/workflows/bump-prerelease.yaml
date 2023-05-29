@@ -51,4 +51,4 @@ jobs:
         npm ci
         npm version ${{ github.event.inputs.version }} | read VERSION
         npm version ${VERSION} --ws
-        git push origin main --follow-tags
+        git push origin --follow-tags
