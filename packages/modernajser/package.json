@@ -2,7 +2,7 @@
   "name": "@ivarbergman/akka-modernajser",
   "description": "Feature detection in browser for Akka.",
   "author": "Äventyret Sweden AB",
-  "version": "0.3.40",
+  "version": "0.3.41",
   "license": "MIT",
   "homepage": "https://github.com/Aventyret/akka-modules/packages/modernajser/#readme",
   "repository": {
