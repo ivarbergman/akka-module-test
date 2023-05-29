@@ -5,17 +5,8 @@ all:
 	@echo "Noop"
 
 patch:
-	npm ci
-	npm version patch --include-workspace-root --ws
-	git status
-	git add .
-	git commit -m 'Publish'
-	git push origin main --follow-tags
+	gh workflow run "Bump release" --ref=${CURRENT_BRANCH} -F version=patch   
 
 prerelease:
-	npm ci
-	npm version prerelease --preid=${CURRENT_TYPE} --include-workspace-root --ws
-	git status
-	git add .
-	git commit -m 'Publish prerelease ${CURRENT_TYPE}'
-	git push origin --follow-tags
+	gh workflow run "Bump prerelease" --ref=${CURRENT_BRANCH} -F version=prerelease   
+
