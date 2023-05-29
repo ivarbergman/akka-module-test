@@ -48,10 +48,15 @@ jobs:
         git config user.name '${{github.actor}}'
         git config user.email '<>'
 
-    - name: Bump version
+    - name: Bump root version
       run: |
         npm ci
-        npm version ${{ github.event.inputs.version }} | read VERSION && npm version ${VERSION} --ws        
+        echo "CURENT_VERSION=$(npm version ${{ github.event.inputs.version }})" >> $GITHUB_ENV
+        
+    - name: Bump modules version
+      run: |
+        npm version ${CURENT_VERSION} --ws        
         git add .
-        git commit --allow-empty -m "Bump version ${VERSION}"
+        git commit --allow-empty -m "Bump version ${CURENT_VERSION}"
         git push origin --follow-tags
+  
