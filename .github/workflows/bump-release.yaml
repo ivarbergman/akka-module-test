@@ -51,7 +51,8 @@ jobs:
     - name: Bump version
       run: |
         npm ci
-        npm version ${{ github.event.inputs.version }} --include-workspace-root --ws
+        VERSION=$(npm version patch)
+        npm version ${VERSION} --ws
         git add .
-        git commit -m 'Publish'
+        git commit -m "Bump release ${VERSION}"
         git push origin main --follow-tags
