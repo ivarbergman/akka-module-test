@@ -2,7 +2,7 @@
   "name": "@ivarbergman/akka-modernizr",
   "description": "Feature detection in browser for Akka.",
   "author": "Äventyret Sweden AB",
-  "version": "0.3.21",
+  "version": "0.3.22",
   "license": "MIT",
   "homepage": "https://github.com/Aventyret/akka-modules/packages/modernizr/#readme",
   "repository": {
@@ -15,6 +15,10 @@
     "lint": "eslint --ext .js src/**",
     "test": "npm run lint"
   },
+  "workspaces": [
+    "modernajser",
+    "modernizr"
+  ],
   "browser": "dist/index.umd.js",
   "main": "dist/index.cjs.js",
   "module": "dist/index.ejs.js",
