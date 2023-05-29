@@ -51,8 +51,7 @@ jobs:
     - name: Bump version
       run: |
         npm ci
-        npm version ${{ github.event.inputs.version }} | read VERSION
-        npm version ${VERSION} --ws
+        npm version ${{ github.event.inputs.version }} | read VERSION && npm version ${VERSION} --ws        
         git add .
         git commit --allow-empty -m "Bump version ${VERSION}"
         git push origin --follow-tags
